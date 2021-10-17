@@ -10,7 +10,7 @@
   --clr-accent-400: #59e89c;
   --clr-accent-500: #00986a;
 
-  --ff-primary: "PT Sans", sans-serif;
+  --ff-primary: 'PT Sans', sans-serif;
 
   --fw-700: 700;
   --fw-400: 400;
@@ -149,6 +149,7 @@ header {
   header {
     position: sticky;
     top: 0;
+    z-index: 1;
   }
 }
 
@@ -188,6 +189,11 @@ section {
 /* individual sections */
 
 .hero img {
+  /* The transform will create new stacking context, but it's against the closest parent stacking context, which is the root.
+     Since header already got 'position: sticky;', it means the header already got a new stacking context and it's against the closest stacking context, which is the root as well.
+     By adding 'z-index: 1;' to header, I have a higher z-index to the header compared to 'hero img'
+     So now the 'hero img' will still stay underneath the header when the page scroll up.
+  */
   transform: translateY(2em);
 }
 
@@ -198,7 +204,7 @@ section {
 }
 
 .join-now li::before {
-  content: "";
+  content: '';
   display: block;
   width: 5rem;
   height: 5rem;
